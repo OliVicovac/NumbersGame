@@ -19,10 +19,13 @@ import sys
 class GameController(object):
 
     def __init__(self):
-        pass
+        self.MainWindow = QtWidgets.QMainWindow()
+        self.view = GameView()
+        self.model = GameModel()
+        self.view.setupUi(self.MainWindow)
 
     def show(self):
-        pass 
+        self.MainWindow.show()
 
     def game_playing(self, p):
         pass
