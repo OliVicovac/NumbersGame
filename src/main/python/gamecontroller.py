@@ -18,14 +18,31 @@ from functools import partial
 
 
 class GameController(object):
+    """
+        GameController
+        Das Spiel wird mit der Funktion :func:`__init__` gestartet
+            - **Methoden**:
+                * :func:`GameController.show`: Zeigt das GUI an
+                * :func:`GameController.game_playing`: bekommt button und schaut ob es der richtige Button ist
+                * :func:`GameController.updateStatistik`: aktualisiert die Statistik
+                * :func:`GameController.reshuffle`: Zufällige Zahlen werden den Buttons zugewiesen
+                * :func:`GameController.push_button_new_click`: neues Spiel wird gestarten
+                * :func:`GameController.push_button_end_click`: Spiel wird geschlossen
+        """
     def __init__(self):
+        """
+        Konstruktor
+        """
         self.Dialog = QtWidgets.QMainWindow()
         self.view = GameView()
         self.model = GameModel()
         self.view.setupUi(self.Dialog)
 
     def show(self):
-
+        """
+        Zeigt das GUI des Spiels an
+        :return: nichts
+        """
         self.Dialog.show()
         self.reshuffle()
         self.view.pushButton_Neu.clicked.connect(partial(self.push_button_new_click))
@@ -37,6 +54,12 @@ class GameController(object):
 
 
     def game_playing(self, p):
+        """
+        bekommt button und schaut ob es der richtige Button ist
+        :param p: button der gedrückt wurde
+        :type p: `QPushButton`
+        :return: nichts
+        """
         button = p
         if int(button.text()) == self.model.nextValue:
             button.setEnabled(False)
@@ -51,6 +74,10 @@ class GameController(object):
 
 
     def updateStatistik(self):
+        """
+        Aktualisiert die Statistik
+        :return: nichts
+        """
         self.view.lineEdit_0.setText(str(self.model.isOpen))
         self.view.lineEdit_1.setText(str(self.model.isCorrect))
         self.view.lineEdit_2.setText(str(self.model.isWrong))
@@ -59,6 +86,12 @@ class GameController(object):
 
 
     def reshuffle(self):
+        """
+        Zufällige Zahlen (0 - 14) werden den Buttons zugewiesen
+        :return:  nichts
+        """
+        for button in self.view.buttons:
+            button.setEnabled(True)
         i = 0
         buttonValues = []
         while i < 15:
@@ -76,9 +109,17 @@ class GameController(object):
 
 
     def push_button_new_click(self):
+        """
+        Neues Spiel wird gestartet beim klicken des Neu-buttons
+        :return: nichts
+        """
         self.model.new_game()
         self.updateStatistik()
         self.reshuffle()
 
     def push_button_end_click(self):
+        """
+        Spiel wird beendet beim klicken des Ende-buttons
+        :return: nichts
+        """
         sys.exit()

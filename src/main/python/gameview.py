@@ -21,6 +21,11 @@ xybh = [
 class GameView(object):
 
     def setupUi(self, Game_ovicovac):
+        """
+        Erstellung des GUI und Erstellen der Buttonsliste
+        :param Game_ovicovac: MainWindow auf dem das GUI gezeichnet wird
+        :return: nichts
+        """
         Game_ovicovac.setObjectName("Game_ovicovac")
         Game_ovicovac.resize(560, 330)
         self.centralwidget = QtWidgets.QWidget(Game_ovicovac)
@@ -126,6 +131,11 @@ class GameView(object):
                         self.pushButton_11, self.pushButton_12, self.pushButton_13, self.pushButton_14, self.pushButton_15]
 
     def retranslateUi(self, Game_ovicovac):
+        """
+        Wird für setupUi benötigt
+        :param Game_ovicovac: MainWindow auf dem das GUI gezeichnet wird
+        :return: nichts
+        """
         _translate = QtCore.QCoreApplication.translate
         Game_ovicovac.setWindowTitle(_translate("Game_ovicovac", "MyGame"))
         self.pushButton_1.setText(_translate("Game_ovicovac", "12"))

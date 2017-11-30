@@ -9,8 +9,17 @@ Created on 17.11.2017
 """
 
 class GameModel(object):
+    """
+        GameModel
+        Das GameModel wird mit der Funktion :func:`__init__` gestartet
+            - **Methoden**:
+                * :func:`GameModel.new_game`: Aktualisiert Statistik für neues Spiel
+        """
 
     def __init__(self):
+        """
+        Konstruktor
+        """
         self.isCorrect = 0
         self.isOpen = 15
         self.isWrong = 0
@@ -20,6 +29,10 @@ class GameModel(object):
 
 
     def new_game(self):
+        """
+        Aktualisiert neue Statistik für neues Spiel
+        :return: nichts
+        """
         self.Ngame += 1
         self.isCorrect = 0
         self.isOpen = 15
