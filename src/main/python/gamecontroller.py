@@ -12,8 +12,9 @@ from gameview import GameView
 from gamemodel import GameModel
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import random
+from random import *
 import sys
+from functools import partial
 
 
 class GameController(object):
@@ -22,14 +23,45 @@ class GameController(object):
         self.view = GameView()
         self.model = GameModel()
         self.view.setupUi(self.Dialog)
-        #_translate = QtCore.QCoreApplication.translate
-        #self.view.pushButton_13.setText(_translate("Game_ovicovac", "Hallo"))
+        self.items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        self.x = sample(self.items, 1)
+
 
     def show(self):
+
         self.Dialog.show()
 
+        self.view.pushButton_Neu.clicked.connect(partial(self.game_playing, self.push_button_end_click))
+        self.view.pushButton_End.clicked.connect(partial(self.game_playing, self.push_button_end_click))
+
+        for button in self.view.buttons:
+            button.clicked.connect(partial(self.game_playing, button))
+
+
+
     def game_playing(self, p):
-        pass
+        button = p
+        if button in self.view.buttons:
+
+            if int(button.text()) == self.model.nextValue:
+                button.setEnabled(False)
+                self.model.nextValue += 1
+                self.model.isCorrect += 1
+                self.model.isOpen -= 1
+            else:
+                self.model.isWrong += 1
+            self.model.isTotal += 1
+            self.updateStatistik()
+
+        print(button.text())
+
+    def updateStatistik(self):
+        self.view.lineEdit_0.setText(str(self.model.isOpen))
+        self.view.lineEdit_1.setText(str(self.model.isCorrect))
+        self.view.lineEdit_2.setText(str(self.model.isWrong))
+        self.view.lineEdit_3.setText(str(self.model.isTotal))
+        self.view.lineEdit_4.setText(str(self.model.Ngame))
+
 
     def reshuffle(self):
         pass

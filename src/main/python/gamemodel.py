@@ -11,11 +11,12 @@ Created on 17.11.2017
 class GameModel(object):
 
     def __init__(self):
-        self.isCorrect = 0;
-        self.isOpen = 15;
-        self.isWrong = 0;
-        self.isTotal = 0;
-        self.Ngame = 1;
+        self.isCorrect = 0
+        self.isOpen = 15
+        self.isWrong = 0
+        self.isTotal = 0
+        self.Ngame = 1
+        self.nextValue = 0
 
 
     def new_game(self):
