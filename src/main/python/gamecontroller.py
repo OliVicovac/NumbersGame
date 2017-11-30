@@ -22,8 +22,8 @@ class GameController(object):
         self.view = GameView()
         self.model = GameModel()
         self.view.setupUi(self.Dialog)
-        _translate = QtCore.QCoreApplication.translate
-        self.view.pushButton_13.setText(_translate("Game_ovicovac", "Hallo"))
+        #_translate = QtCore.QCoreApplication.translate
+        #self.view.pushButton_13.setText(_translate("Game_ovicovac", "Hallo"))
 
     def show(self):
         self.Dialog.show()
