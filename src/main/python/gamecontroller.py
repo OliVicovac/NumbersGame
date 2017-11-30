@@ -12,7 +12,7 @@ from gameview import GameView
 from gamemodel import GameModel
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from random import *
+import random
 import sys
 from functools import partial
 
@@ -23,14 +23,11 @@ class GameController(object):
         self.view = GameView()
         self.model = GameModel()
         self.view.setupUi(self.Dialog)
-        self.items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-        self.x = sample(self.items, 1)
-
 
     def show(self):
 
         self.Dialog.show()
-
+        self.reshuffle()
         self.view.pushButton_Neu.clicked.connect(partial(self.push_button_new_click))
         self.view.pushButton_End.clicked.connect(partial(self.push_button_end_click))
 
@@ -62,7 +59,21 @@ class GameController(object):
 
 
     def reshuffle(self):
-        pass
+        i = 0
+        buttonValues = []
+        while i < 15:
+            randnum = random.randrange(0, 15)
+            if not (randnum in buttonValues):
+                buttonValues.append(randnum)
+                i += 1
+
+        i = 0
+        for button in self.view.buttons:
+            button.setText(str(buttonValues[i]))
+            i += 1
+
+
+
 
     def push_button_new_click(self):
         self.model.new_game()
