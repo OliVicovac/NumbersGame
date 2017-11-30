@@ -31,8 +31,8 @@ class GameController(object):
 
         self.Dialog.show()
 
-        self.view.pushButton_Neu.clicked.connect(partial(self.game_playing, self.push_button_end_click))
-        self.view.pushButton_End.clicked.connect(partial(self.game_playing, self.push_button_end_click))
+        self.view.pushButton_Neu.clicked.connect(partial(self.push_button_new_click))
+        self.view.pushButton_End.clicked.connect(partial(self.push_button_end_click))
 
         for button in self.view.buttons:
             button.clicked.connect(partial(self.game_playing, button))
@@ -41,19 +41,17 @@ class GameController(object):
 
     def game_playing(self, p):
         button = p
-        if button in self.view.buttons:
+        if int(button.text()) == self.model.nextValue:
+            button.setEnabled(False)
+            self.model.nextValue += 1
+            self.model.isCorrect += 1
+            self.model.isOpen -= 1
+        else:
+            self.model.isWrong += 1
+        self.model.isTotal += 1
+        self.updateStatistik()
 
-            if int(button.text()) == self.model.nextValue:
-                button.setEnabled(False)
-                self.model.nextValue += 1
-                self.model.isCorrect += 1
-                self.model.isOpen -= 1
-            else:
-                self.model.isWrong += 1
-            self.model.isTotal += 1
-            self.updateStatistik()
 
-        print(button.text())
 
     def updateStatistik(self):
         self.view.lineEdit_0.setText(str(self.model.isOpen))
@@ -67,7 +65,9 @@ class GameController(object):
         pass
 
     def push_button_new_click(self):
-        pass
+        self.model.new_game()
+        self.updateStatistik()
+        self.reshuffle()
 
     def push_button_end_click(self):
         sys.exit()

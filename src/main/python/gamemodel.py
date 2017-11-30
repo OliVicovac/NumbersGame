@@ -20,5 +20,10 @@ class GameModel(object):
 
 
     def new_game(self):
-        pass
+        self.Ngame += 1
+        self.isCorrect = 0
+        self.isOpen = 15
+        self.isWrong = 0
+        self.isTotal = 0
+        self.nextValue = 0
 
