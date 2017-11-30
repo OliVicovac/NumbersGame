@@ -17,15 +17,16 @@ import sys
 
 
 class GameController(object):
-
     def __init__(self):
-        self.MainWindow = QtWidgets.QMainWindow()
+        self.Dialog = QtWidgets.QMainWindow()
         self.view = GameView()
         self.model = GameModel()
-        self.view.setupUi(self.MainWindow)
+        self.view.setupUi(self.Dialog)
+        _translate = QtCore.QCoreApplication.translate
+        self.view.pushButton_13.setText(_translate("Game_ovicovac", "Hallo"))
 
     def show(self):
-        self.MainWindow.show()
+        self.Dialog.show()
 
     def game_playing(self, p):
         pass
